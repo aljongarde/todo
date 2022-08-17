@@ -7,7 +7,10 @@
     <div class="flex-1">
       <DashboardNavbar/>
 
-      <p>main content</p>
+      <div class="min-h-full">
+        <RouterView></RouterView>
+      </div>
+
     </div>
   </div>
 </template>
@@ -16,6 +19,7 @@
 
 import DashboardNavbar from "../Navbars/DashboardNavbar.vue";
 import DashboardSidebar from "../Navbars/DashboardSidebar.vue";
+import DashboardView from "../../views/DashboardView.vue";
 
 
 </script>

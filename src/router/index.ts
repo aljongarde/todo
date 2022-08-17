@@ -6,6 +6,7 @@ import IndexView from '../views/IndexView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import DashboardView from '../views/DashboardView.vue'
+import TaskListView from '../views/TaskListView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -43,6 +44,12 @@ const routes: Array<RouteRecordRaw> = [
         alias: '/home',
         component: DashboardView,
         meta: { title: 'Home', ParentName: 'Home'}
+      },
+      {
+        path: '/',
+        alias: '/tasks',
+        component: TaskListView,
+        meta: { title: 'Tasks', ParentName: 'Home'}
       },
     ]
   }
