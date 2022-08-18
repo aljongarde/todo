@@ -1,33 +1,71 @@
 <template>
-  <div class="flex flex-col flex-grow border-r border-gray-200 pt-5 pb-4 bg-white overflow-y-auto">
-    <div class="flex items-center flex-shrink-0 px-4">
-      <i class="h-8 w-auto bi bi-calendar-check-fill text-green-700"></i>
+  <div class="md:pl-64 flex flex-col flex-1">
+      <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow">
+        <button type="button" class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden" @click="sidebarOpen = true">
+          <span class="sr-only">Open sidebar</span>
+          <MenuAlt2Icon class="h-6 w-6" aria-hidden="true" />
+        </button>
+        <div class="flex-1 px-4 flex justify-between">
+          <div class="flex-1 flex">
+            <form class="w-full flex md:ml-0" action="#" method="GET">
+              <label for="search-field" class="sr-only">Search</label>
+              <div class="relative w-full text-gray-400 focus-within:text-gray-600">
+                <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+                  <SearchIcon class="h-5 w-5" aria-hidden="true" />
+                </div>
+                <input id="search-field" class="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm" placeholder="Search" type="search" name="search" />
+              </div>
+            </form>
+          </div>
+          <div class="ml-4 flex items-center md:ml-6">
+            <button type="button" class="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <span class="sr-only">View notifications</span>
+              <BellIcon class="h-6 w-6" aria-hidden="true" />
+            </button>
+
+            <!-- Profile dropdown -->
+            <Menu as="div" class="ml-3 relative">
+              <div>
+                <MenuButton class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <span class="sr-only">Open user menu</span>
+                  <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                </MenuButton>
+              </div>
+              <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+                <MenuItems class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
+                    <a :href="item.href" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">{{ item.name }}</a>
+                  </MenuItem>
+                </MenuItems>
+              </transition>
+            </Menu>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="mt-5 flex-grow flex flex-col">
-      <nav class="flex-1 px-2 bg-white space-y-1" aria-label="Sidebar">
-        <a v-for="item in navigation" @click="this.$router.push(item.name);item.current=true" :key="item.name" :class="[item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900', 'group flex items-center px-2 py-2 text-sm font-medium rounded-md']">
-          
-          <component :is="item.icon" :class="[item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500', 'mr-3 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
-          <span class="flex-1" >
-            {{ item.name }}
-          </span>
-          <span v-if="item.count" :class="[item.current ? 'bg-white' : 'bg-gray-100 group-hover:bg-gray-200', 'ml-3 inline-block py-0.5 px-3 text-xs font-medium rounded-full']">
-            {{ item.count }}
-          </span>
-        </a>
-      </nav>
-      
-    </div>
-  </div>
 </template>
 
 <script setup>
-import { CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon } from '@heroicons/vue/outline'
+import { CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, MenuItem, MenuItems } from '@heroicons/vue/outline'
+import { SearchIcon } from '@heroicons/vue/solid'
+import { ref } from 'vue'
 
 const navigation = [
-  { name: 'Home', icon: HomeIcon, href: 'Home', current: false },
-  { name: 'Tasks', icon: UsersIcon, href: 'Tasks', count: 3, current: false },
+  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
+  { name: 'Team', href: '#', icon: UsersIcon, current: false },
+  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
+  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+  { name: 'Documents', href: '#', icon: InboxIcon, current: false },
+  { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
 ]
+const userNavigation = [
+  { name: 'Your Profile', href: '#' },
+  { name: 'Settings', href: '#' },
+  { name: 'Sign out', href: '#' },
+]
+
+const sidebarOpen = ref(false)
+
 
 
 
