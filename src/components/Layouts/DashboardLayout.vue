@@ -7,7 +7,7 @@
       
       <DashboardNavbar/>
 
-      <main>
+      <main class="p-5">
         
         <RouterView></RouterView>
         

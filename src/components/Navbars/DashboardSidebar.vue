@@ -39,7 +39,7 @@
     <!-- Static sidebar for desktop -->
     <div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
       <!-- Sidebar component, swap this element with another sidebar if you like -->
-      <div class="flex flex-col flex-grow pt-5 bg-indigo-700 overflow-y-auto">
+      <div class="flex flex-col flex-grow pt-5 bg-green-600 overflow-y-auto">
         <div class="flex items-center flex-shrink-0 px-4">
           <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=300" alt="Workflow" />
         </div>
@@ -51,13 +51,13 @@
             </a>
             -->
             <router-link to="/home">
-            <a class="my-2 bg-indigo-800 text-white hover:bg-indigo-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+            <a class="my-2 bg-green-400 text-white hover:bg-green-400 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
               Home
             </a>
             </router-link>
 
             <router-link to="/tasks">
-            <a class="bg-indigo-800 text-white hover:bg-indigo-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+            <a class="bg-green-400 text-white hover:bg-green-400 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
               Tasks
             </a>
             </router-link>
