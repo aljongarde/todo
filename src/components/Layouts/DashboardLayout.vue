@@ -59,4 +59,6 @@ const userNavigation = [
 ]
 
 const sidebarOpen = ref(false)
+
+
 </script>
