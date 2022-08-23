@@ -1,5 +1,5 @@
 <template>
-  <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" @click="closeModal()">
   <!--
     Background backdrop, show/hide based on modal state.
 
@@ -24,7 +24,7 @@
           From: "opacity-100 translate-y-0 sm:scale-100"
           To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
       -->
-      <form action="#" method="POST">
+      <form action="#" method="POST" @click.stop>
       <div class="shadow sm:rounded-md sm:overflow-hidden">
         <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
           <div>
@@ -35,7 +35,7 @@
 
             <div class="col-span-6">
               <label for="task_name" class="block text-sm font-medium text-gray-700">Task name</label>
-              <input type="text" name="task_name" id="task_name" autocomplete="task_name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              <input v-model="task_name" type="text" name="task_name" id="task_name" autocomplete="task_name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             </div>
 
             <div class="col-span-6">
@@ -44,12 +44,12 @@
 
             <div class="col-span-6 sm:col-span-6 lg:col-span-2">
               <label for="task_deadline_date" class="block text-sm font-medium text-gray-700">Date</label>
-              <input type="date" name="task_deadline_date" id="task_deadline_date" autocomplete="task_deadline_date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              <input v-model="task_deadline_date" type="date" name="task_deadline_date" id="task_deadline_date" autocomplete="task_deadline_date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             </div>
 
             <div class="col-span-6 sm:col-span-3 lg:col-span-2">
               <label for="task_deadline_time" class="block text-sm font-medium text-gray-700">Time</label>
-              <input type="time" name="task_deadline_time" id="task_deadline_time" autocomplete="task_deadline_time" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              <input v-model="task_deadline_time" type="time" name="task_deadline_time" id="task_deadline_time" autocomplete="task_deadline_time" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             </div>
 
           </div>
@@ -65,8 +65,26 @@
 </div>
 </template>
 
-<script setup>
+<script>
 import { ref } from 'vue'
 
 const open = ref(true)
+
+export default{
+  data(){
+    return{
+      task_name: '',
+      task_deadline_time: '',
+      task_deadline_date: ''
+    }
+  },
+  methods: {
+    closeModal: function(){
+      this.$emit('close-modal');
+      this.task_name = '';
+      this.task_deadline_time = '';
+      this.task_deadline_date = '';
+    }
+  }
+}
 </script>
