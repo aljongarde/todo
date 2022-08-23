@@ -1,6 +1,8 @@
 <template>
 
-<div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div>
+
+    <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
 <form @submit.prevent="handleSubmit" class="space-y-8 divide-y divide-gray-200">
     <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
       <div>
@@ -21,13 +23,6 @@
             <label for="user_password" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Password </label>
             <div class="mt-1 sm:mt-0 sm:col-span-2">
               <input v-model="user_password" type="password" name="user_password" id="user_password" autocomplete="user-password" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
-            </div>
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="user_pic" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"> Profile picture </label>
-            <div class="mt-1 sm:mt-0 sm:col-span-2">
-              <input @change="onPicChange" id="user_pic" name="user_pic" type="file" autocomplete="email" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
             </div>
           </div>
 
@@ -82,8 +77,6 @@
             </div>
           </div>
 
-          
-
         </div>
       </div>
 
@@ -96,6 +89,11 @@
       </div>
     </div>
   </form>
+  
+  </div>
+
+  <SuccessNotice />
+
   </div>
 
 </template>
@@ -103,12 +101,15 @@
 <script>
 
 import axios from 'axios'
+import SuccessNotice from "../components/Modals/SuccessNotice.vue";
 
 export default{
   name: 'RegisterView',
+  components: {
+    SuccessNotice
+  },
   data() {
     return{
-      user_pic: '',
       user_email: '',
       user_password: '',
       user_fname: '',
@@ -147,7 +148,7 @@ export default{
         gender : this.user_gender,
         email : this.user_email,
         password : this.user_password,
-        profile_pic : this.user_pic,
+        profile_pic : 'default_pic.png',
         datetime_added : dateTime      
       };
 
@@ -168,6 +169,8 @@ export default{
                 form_data = "";
                 alert('Registration successful!');
 
+                this.$router.push('/login');
+
                 }
             })
         
@@ -186,10 +189,12 @@ export default{
       */
 
     },
+    /*
     onPicChange(e){
       //alert(e.target.files[0].name)
       this.user_pic = e.target.files[0].name;
     },
+    */
     onGenderChange(gender){
       this.user_gender = gender;
     }
